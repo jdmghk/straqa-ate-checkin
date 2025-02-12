@@ -6,12 +6,12 @@ import ateLogo from "./ate-logo.svg";
 import straqaLogo from "./straqa-logo.svg";
 import image from "./image.jpg";
 
-import { Button } from "components/ui/button";
-import { Card, CardContent } from "components/ui/card";
-import { Label } from "components/ui/label";
-import { Input } from "components/ui/input";
+import { Button } from "~/components/ui/button";
+import { Card, CardContent } from "~/components/ui/card";
+import { Label } from "~/components/ui/label";
+import { Input } from "~/components/ui/input";
 import { Loading02 } from "@untitled-ui/icons-react";
-import { getClientIP } from "uitilities/ip";
+import { getClientIP } from "~/uitilities/ip";
 
 export function meta({}: Route.MetaArgs) {
   return [

@@ -1,10 +1,10 @@
 import { data, redirect, useFetcher } from "react-router";
 import type { Route } from "./+types/print";
-import { getClientIP } from "uitilities/ip";
+import { getClientIP } from "~/uitilities/ip";
 import { commitSession, getSession } from "~/session.server";
 import { Loading02 } from "@untitled-ui/icons-react";
 import { useEffect, useRef } from "react";
-import { Button } from "components/ui/button";
+import { Button } from "~/components/ui/button";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import useSWRMutation from "swr/mutation";

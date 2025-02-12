@@ -2,7 +2,7 @@
 import { Link, redirect, useFetcher } from "react-router";
 import { destroySession, getSession } from "app/session.server";
 
-import { Button } from "components/ui/button";
+import { Button } from "~/components/ui/button";
 
 import { Loading02 } from "@untitled-ui/icons-react";
 // import type { Route } from "./+types/logout";

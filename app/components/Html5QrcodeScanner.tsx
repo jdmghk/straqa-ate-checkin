@@ -5,7 +5,7 @@ import {
   Html5QrcodeScanner,
   type Html5QrcodeCameraScanConfig,
 } from "html5-qrcode";
-import { cn } from "uitilities/ui";
+import { cn } from "~/uitilities/ui";
 
 const qrcodeRegionId = "html5qr-code-full-region";
 

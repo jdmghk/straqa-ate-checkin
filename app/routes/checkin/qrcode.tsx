@@ -5,19 +5,19 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "components/ui/command";
-import { useDebounce } from "hooks/debounce";
+} from "~/components/ui/command";
+import { useDebounce } from "~/hooks/debounce";
 import { Loader2 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { data, redirect, useFetcher, useNavigate } from "react-router";
 import { toast } from "sonner";
-import { getClientIP } from "uitilities/ip";
+import { getClientIP } from "~/uitilities/ip";
 import { commitSession, getSession } from "~/session.server";
-import { Button } from "components/ui/button";
+import { Button } from "~/components/ui/button";
 import QrScanner from "qr-scanner";
 import QrFrame from "./qr-frame.svg";
 import { Scanner } from "@yudiel/react-qr-scanner";
-import Html5QrcodePlugin from "components/Html5QrcodeScanner";
+import Html5QrcodePlugin from "~/components/Html5QrcodeScanner";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const session = await getSession(request.headers.get("Cookie"));
