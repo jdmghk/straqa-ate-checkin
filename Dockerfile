@@ -6,9 +6,9 @@ RUN apk add --no-cache libc6-compat curl \
     && npm install -g pnpm
 
 # Copy the entire project
-RUN ls
 COPY . /app
 WORKDIR /app
+RUN ls
 
 # Install all dependencies
 RUN pnpm install
