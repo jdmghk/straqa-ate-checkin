@@ -1,11 +1,9 @@
-# Use Node 20 Alpine as the base image for development dependencies
+# Use Node 20 Alpine as the base image for dependencies
 FROM node:20-alpine AS development-dependencies-env
 
-# Install libc6-compat for compatibility
-RUN apk add --no-cache libc6-compat
-
-# Enable Corepack and install PNPM
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Install libc6-compat for compatibility and manually install PNPM
+RUN apk add --no-cache libc6-compat curl \
+    && npm install -g pnpm
 
 # Copy the entire project
 COPY . /app
@@ -20,8 +18,9 @@ RUN pnpm install
 # =========================
 FROM node:20-alpine AS production-dependencies-env
 
-# Enable Corepack and install PNPM
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Install PNPM manually
+RUN apk add --no-cache curl \
+    && npm install -g pnpm
 
 COPY ./package.json pnpm-lock.yaml /app/
 WORKDIR /app
@@ -54,8 +53,9 @@ ENV VITE_PUBLIC_BASE_URL=$VITE_PUBLIC_BASE_URL
 # =========================
 FROM node:20-alpine
 
-# Enable Corepack and install PNPM
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Install PNPM manually
+RUN apk add --no-cache curl \
+    && npm install -g pnpm
 
 COPY ./package.json pnpm-lock.yaml /app/
 COPY --from=production-dependencies-env /app/node_modules /app/node_modules
