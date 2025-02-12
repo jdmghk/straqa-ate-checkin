@@ -12,7 +12,6 @@ import { Label } from "components/ui/label";
 import { Input } from "components/ui/input";
 import { Loading02 } from "@untitled-ui/icons-react";
 import { getClientIP } from "uitilities/ip";
-import { env } from "env";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -69,14 +68,17 @@ export async function action({ request }: Route.ActionArgs) {
   }
 
   try {
-    const response = await fetch(`${env.PUBLIC_BASE_URL}/api/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-forwarded-for": ip,
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_PUBLIC_BASE_URL}/api/auth/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-forwarded-for": ip,
+        },
+        body: JSON.stringify({ email, password }),
+      }
+    );
 
     if (!response.ok) {
       const responseData = await response.json();

@@ -2,7 +2,6 @@ import { data, redirect, useFetcher } from "react-router";
 import type { Route } from "./+types/print";
 import { getClientIP } from "uitilities/ip";
 import { commitSession, getSession } from "~/session.server";
-import { env } from "env";
 import { Loading02 } from "@untitled-ui/icons-react";
 import { useEffect, useRef } from "react";
 import { Button } from "components/ui/button";
@@ -27,15 +26,18 @@ async function updateTagPickup(
 ) {
   const ip = await getClientIP();
 
-  const response = await fetch(`${url}/${arg.ticketId}/tag-pickup`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      "x-forwarded-for": arg.ip,
-      Authorization: `Bearer ${arg.accessToken}`,
-    },
-    body: JSON.stringify({ location: arg.location }),
-  });
+  const response = await fetch(
+    `${url}/api/tickets/${arg.ticketId}/tag-pickup`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "x-forwarded-for": arg.ip,
+        Authorization: `Bearer ${arg.accessToken}`,
+      },
+      body: JSON.stringify({ location: arg.location }),
+    }
+  );
 
   if (!response.ok) {
     throw new Error("Failed to update tag pickup");
@@ -95,7 +97,7 @@ export async function action({ request }: Route.ActionArgs) {
 
   try {
     const response = await fetch(
-      `${env.PUBLIC_BASE_URL}/api/tickets/${ticketId}`,
+      `${import.meta.env.VITE_PUBLIC_BASE_URL}/api/tickets/${ticketId}`,
       {
         method: "GET",
         headers: {
@@ -158,7 +160,7 @@ export default function Print({ loaderData }: Route.ComponentProps) {
   }, []);
 
   const { trigger, isMutating } = useSWRMutation(
-    `https://api-africa-tech-expo.straqa.com/api/tickets`,
+    import.meta.env.VITE_PUBLIC_BASE_URL,
     updateTagPickup
   );
 

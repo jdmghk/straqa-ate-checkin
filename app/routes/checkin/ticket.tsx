@@ -2,12 +2,11 @@ import { data, Link, redirect, useFetcher } from "react-router";
 import type { Route } from "./+types/print";
 import { getClientIP } from "uitilities/ip";
 import { commitSession, getSession } from "~/session.server";
-import { env } from "env";
 import { Input } from "components/ui/input";
 import { Loading02 } from "@untitled-ui/icons-react";
 import { useEffect } from "react";
 import { Label } from "components/ui/label";
-import { Button, buttonVariants } from "components/ui/button";
+import { buttonVariants } from "components/ui/button";
 // import useSWR from "swr";
 
 export async function loader({ request }: Route.LoaderArgs) {
@@ -57,7 +56,7 @@ export async function action({ request }: Route.ActionArgs) {
 
   try {
     const response = await fetch(
-      `${env.PUBLIC_BASE_URL}/api/tickets/${ticketId}`,
+      `${import.meta.env.VITE_PUBLIC_BASE_URL}/api/tickets/${ticketId}`,
       {
         method: "GET",
         headers: {

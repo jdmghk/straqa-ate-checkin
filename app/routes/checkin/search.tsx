@@ -7,7 +7,6 @@ import {
   CommandList,
 } from "components/ui/command";
 import { useDebounce } from "hooks/debounce";
-import { env } from "env";
 import { Loader2 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { data, redirect, useFetcher, useNavigate } from "react-router";
@@ -45,7 +44,7 @@ export async function action({ request }: Route.ActionArgs) {
 
   try {
     const response = await fetch(
-      `${env.PUBLIC_BASE_URL}/api/tickets?search=${search}`,
+      `${import.meta.env.VITE_PUBLIC_BASE_URL}/api/tickets?search=${search}`,
       {
         method: "GET",
         headers: {
