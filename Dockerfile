@@ -29,9 +29,11 @@ RUN apk add --no-cache libc6-compat
 # Ensure Corepack is enabled properly
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
+RUN ls
+
 COPY . /app
 WORKDIR /app
-RUN npm ci
+RUN pnpm install
 
 FROM node:20-alpine AS production-dependencies-env
 COPY ./package.json pnpm-lock.yaml  /app/
