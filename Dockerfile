@@ -6,12 +6,18 @@ RUN apk add --no-cache libc6-compat curl \
     && npm install -g pnpm
 
 # Copy the entire project
+RUN ls
 COPY . /app
 WORKDIR /app
 
 # Install all dependencies
 RUN pnpm install
 
+# Set environment variables
+ARG VITE_COOKIE_SECRET
+ARG VITE_PUBLIC_BASE_URL
+ENV VITE_COOKIE_SECRET=$VITE_COOKIE_SECRET
+ENV VITE_PUBLIC_BASE_URL=$VITE_PUBLIC_BASE_URL
 
 # =========================
 # PRODUCTION DEPENDENCIES
@@ -42,20 +48,20 @@ COPY . /app/
 COPY --from=development-dependencies-env /app/node_modules /app/node_modules
 WORKDIR /app
 
-# Build the project
-RUN pnpm run build
-
-# Set environment variables
-ARG VITE_COOKIE_SECRET
-ARG VITE_PUBLIC_BASE_URL
 ENV VITE_COOKIE_SECRET=$VITE_COOKIE_SECRET
 ENV VITE_PUBLIC_BASE_URL=$VITE_PUBLIC_BASE_URL
+
+# Build the project
+RUN pnpm run build
 
 
 # =========================
 # FINAL PRODUCTION IMAGE
 # =========================
 FROM node:20-alpine
+
+ENV VITE_COOKIE_SECRET=$VITE_COOKIE_SECRET
+ENV VITE_PUBLIC_BASE_URL=$VITE_PUBLIC_BASE_URL
 
 # Install PNPM manually
 RUN apk add --no-cache curl \
