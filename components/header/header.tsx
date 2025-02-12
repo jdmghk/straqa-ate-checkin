@@ -14,7 +14,9 @@ export default function Header() {
           <img src={logo} alt='Straqa' className='w-full' />
         </a>
 
-        <Link to='/logout'>Logout</Link>
+        <Link to='/logout' viewTransition>
+          Logout
+        </Link>
       </nav>
     </header>
   );

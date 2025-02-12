@@ -28,7 +28,9 @@ export default function LogoutRoute() {
           <span>Logout</span>
         </Button>
       </fetcher.Form>
-      <Link to='/'>Never mind</Link>
+      <Link to='/' viewTransition>
+        Never mind
+      </Link>
     </div>
   );
 }

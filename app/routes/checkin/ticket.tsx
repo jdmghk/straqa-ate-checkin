@@ -179,6 +179,7 @@ export default function Print({ loaderData }: Route.ComponentProps) {
           <Link
             to={`/checkin/ticket/print?ticketId=${loaderData?.ticketId}`}
             className={buttonVariants()}
+            viewTransition
           >
             Continue
           </Link>
