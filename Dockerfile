@@ -34,6 +34,10 @@ RUN pnpm install --frozen-lockfile
 # =========================
 FROM node:20-alpine AS build-env
 
+# Install PNPM manually
+RUN apk add --no-cache curl \
+    && npm install -g pnpm
+
 COPY . /app/
 COPY --from=development-dependencies-env /app/node_modules /app/node_modules
 WORKDIR /app
